@@ -1,0 +1,9 @@
+project:
+  output-dir: _docs
+
+website:
+  title: "cjm-pytorch-utils"
+  site-url: "https://cj-mills.github.io/cjm-pytorch-utils"
+  description: "Some utility functions for working with PyTorch."
+  repo-branch: main
+  repo-url: "https://github.com/cj-mills/cjm-pytorch-utils"
