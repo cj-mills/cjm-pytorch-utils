@@ -14,7 +14,7 @@ pip install cjm_pytorch_utils
 ### pil_to_tensor
 
 ``` python
-from cjm_py_utils.pytorch_utils import pil_to_tensor
+from cjm_pytorch_utils.core import pil_to_tensor
 from PIL import Image
 from torchvision import transforms
 ```
@@ -35,7 +35,7 @@ img_tensor.shape, img_tensor.min(), img_tensor.max()
 ### tensor_to_pil
 
 ``` python
-from cjm_py_utils.pytorch_utils import tensor_to_pil
+from cjm_pytorch_utils.core import tensor_to_pil
 ```
 
 ``` python
