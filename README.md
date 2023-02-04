@@ -44,3 +44,89 @@ tensor_img
 ```
 
 ![](index_files/figure-commonmark/cell-5-output-1.png)
+
+### iterate_modules
+
+``` python
+from cjm_pytorch_utils.core import iterate_modules
+import torch
+from torchvision import models
+```
+
+``` python
+vgg = models.vgg16(weights=models.VGG16_Weights.IMAGENET1K_V1).features
+
+for index, module in enumerate(iterate_modules(vgg)):
+    if type(module) == torch.nn.modules.activation.ReLU:
+        print(f"{index}: {module}")
+```
+
+    1: ReLU(inplace=True)
+    3: ReLU(inplace=True)
+    6: ReLU(inplace=True)
+    8: ReLU(inplace=True)
+    11: ReLU(inplace=True)
+    13: ReLU(inplace=True)
+    15: ReLU(inplace=True)
+    18: ReLU(inplace=True)
+    20: ReLU(inplace=True)
+    22: ReLU(inplace=True)
+    25: ReLU(inplace=True)
+    27: ReLU(inplace=True)
+    29: ReLU(inplace=True)
+
+### tensor_stats_df
+
+``` python
+from cjm_pytorch_utils.core import tensor_stats_df
+```
+
+``` python
+tensor_stats_df(torch.randn(1, 3, 256, 256))
+```
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>0</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>mean</th>
+      <td>0.000952</td>
+    </tr>
+    <tr>
+      <th>std</th>
+      <td>0.998587</td>
+    </tr>
+    <tr>
+      <th>min</th>
+      <td>-4.616786</td>
+    </tr>
+    <tr>
+      <th>max</th>
+      <td>5.122179</td>
+    </tr>
+    <tr>
+      <th>shape</th>
+      <td>(1, 3, 256, 256)</td>
+    </tr>
+  </tbody>
+</table>
+</div>
