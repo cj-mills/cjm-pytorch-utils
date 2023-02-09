@@ -109,19 +109,19 @@ tensor_stats_df(torch.randn(1, 3, 256, 256))
   <tbody>
     <tr>
       <th>mean</th>
-      <td>0.000952</td>
+      <td>0.001601</td>
     </tr>
     <tr>
       <th>std</th>
-      <td>0.998587</td>
+      <td>0.999375</td>
     </tr>
     <tr>
       <th>min</th>
-      <td>-4.616786</td>
+      <td>-4.79662</td>
     </tr>
     <tr>
       <th>max</th>
-      <td>5.122179</td>
+      <td>4.263451</td>
     </tr>
     <tr>
       <th>shape</th>
@@ -130,3 +130,15 @@ tensor_stats_df(torch.randn(1, 3, 256, 256))
   </tbody>
 </table>
 </div>
+
+### get_torch_device
+
+``` python
+from cjm_pytorch_utils.core import get_torch_device
+```
+
+``` python
+get_torch_device()
+```
+
+    'cuda'
