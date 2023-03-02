@@ -109,19 +109,19 @@ tensor_stats_df(torch.randn(1, 3, 256, 256))
   <tbody>
     <tr>
       <th>mean</th>
-      <td>0.001601</td>
+      <td>-0.005094</td>
     </tr>
     <tr>
       <th>std</th>
-      <td>0.999375</td>
+      <td>1.000616</td>
     </tr>
     <tr>
       <th>min</th>
-      <td>-4.79662</td>
+      <td>-4.546455</td>
     </tr>
     <tr>
       <th>max</th>
-      <td>4.263451</td>
+      <td>4.176374</td>
     </tr>
     <tr>
       <th>shape</th>
@@ -142,3 +142,21 @@ get_torch_device()
 ```
 
     'cuda'
+
+### denorm_img_tensor
+
+``` python
+from cjm_pytorch_utils.core import denorm_img_tensor
+```
+
+``` python
+tensor_to_pil(img_tensor)
+```
+
+![](index_files/figure-commonmark/cell-17-output-1.png)
+
+``` python
+tensor_to_pil(denorm_img_tensor(img_tensor, [0.5], [0.5]))
+```
+
+![](index_files/figure-commonmark/cell-18-output-1.png)
