@@ -22,23 +22,17 @@ import torch  # PyTorch module for deep learning
 from torchvision import transforms  # PyTorch module for image transformations
 
 # %% ../nbs/00_core.ipynb 5
-def set_seed(seed: int, deterministic: bool = False) -> None:
+def set_seed(seed: int, # The seed value to be set for all random number generators.
+             deterministic: bool = False # If True, uses deterministic algorithms in PyTorch where possible for reproducibility, at the cost of performance.
+            ) -> None:
     """
     Sets the seed for generating random numbers in PyTorch, NumPy, and Python's random module.
 
     This function is used for reproducibility in stochastic operations, e.g. shuffling in data loaders,
     random initializations in neural networks, etc.
 
-    Args:
-    seed (int): The seed value to be set for all random number generators.
-    deterministic (bool, optional): If True, uses deterministic algorithms in PyTorch where possible for reproducibility,
-    at the cost of performance. Default is False, for potentially non-deterministic but faster performance.
-
     Note: The deterministic flag does not guarantee complete reproducibility. Operations which rely on CUDA might
     still produce non-deterministic results.
-
-    Returns:
-    None
     """
     torch.manual_seed(seed)
     np.random.seed(seed)
