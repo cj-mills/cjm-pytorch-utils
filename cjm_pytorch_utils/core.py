@@ -2,7 +2,7 @@
 
 # %% auto 0
 __all__ = ['set_seed', 'pil_to_tensor', 'tensor_to_pil', 'iterate_modules', 'tensor_stats_df', 'get_torch_device',
-           'denorm_img_tensor']
+           'denorm_img_tensor', 'move_data_to_device']
 
 # %% ../nbs/00_core.ipynb 3
 # Import necessary modules from the standard library
@@ -128,3 +128,37 @@ def denorm_img_tensor(img_tensor:torch.Tensor, # The tensor representing the nor
     std_tensor = torch.Tensor(std).view(1,1,-1).permute(2, 0, 1)
     # Denormalize the image tensor
     return img_tensor*std_tensor+mean_tensor
+
+# %% ../nbs/00_core.ipynb 34
+def move_data_to_device(data, # Data to move to the device.
+                        device:torch.device # The PyTorch device to move the data to.
+                       ): # Moved data with the same structure as the input but residing on the specified device.
+    """
+    Recursively move data to the specified device.
+
+    This function takes a data structure (could be a tensor, list, tuple, or dictionary)
+    and moves all tensors within the structure to the given PyTorch device.
+
+    Returns:
+    - 
+    """
+    
+    # If the data is a tuple, iterate through its elements and move each to the device.
+    if isinstance(data, tuple):
+        return tuple(move_data_to_device(d, device) for d in data)
+    
+    # If the data is a list, iterate through its elements and move each to the device.
+    if isinstance(data, list):
+        return list(move_data_to_device(d, device) for d in data)
+    
+    # If the data is a dictionary, iterate through its key-value pairs and move each value to the device.
+    elif isinstance(data, dict):
+        return {k: move_data_to_device(v, device) for k, v in data.items()}
+    
+    # If the data is a tensor, directly move it to the device.
+    elif isinstance(data, torch.Tensor):
+        return data.to(device)
+    
+    # If the data type is not a tensor, list, tuple, or dictionary, it remains unchanged.
+    else:
+        return data
