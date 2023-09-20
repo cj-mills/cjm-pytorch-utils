@@ -132,7 +132,7 @@ def denorm_img_tensor(img_tensor:torch.Tensor, # The tensor representing the nor
 # %% ../nbs/00_core.ipynb 34
 def move_data_to_device(data, # Data to move to the device.
                         device:torch.device # The PyTorch device to move the data to.
-                       ): # Moved data with the same structure as the input but residing on the specified device.
+                       ):
     """
     Recursively move data to the specified device.
 
