@@ -194,9 +194,8 @@ class ImageDataset(Dataset):
 
 # %% ../nbs/00_core.ipynb 40
 def compute_mean_std(image_paths:List[Path], # List of image file paths.
-                     batch_size:int=64, # Number of images to process in a batch.
-                     num_workers:int=os.cpu_count(), # Number of subprocesses to use for data loading.
-                     device:str='cpu', # Device to use for computation (e.g., 'cpu', 'cuda')
+                     batch_size:int=32, # Number of images to process in a batch.
+                     num_workers:int=0, # Number of subprocesses to use for data loading.
                      image_size:int=224, # Size to resize images to.
                      transform:transforms.Compose=None # Torchvision transforms to apply to the images.
                     )->dict: # Dictionary containing 'mean' and 'std' values.
@@ -223,9 +222,8 @@ def compute_mean_std(image_paths:List[Path], # List of image file paths.
     )
 
     # Initialize accumulators
-    # Move accumulators to the specified device
-    mean = torch.zeros(3, device=device)
-    std = torch.zeros(3, device=device)
+    mean = torch.zeros(3)
+    std = torch.zeros(3)
     total_pixels = 0
 
     # Iterate over DataLoader
@@ -233,7 +231,7 @@ def compute_mean_std(image_paths:List[Path], # List of image file paths.
         # data shape: (batch_size, channels, height, width)
         batch_samples = data.size(0)
         # Flatten height and width
-        data = data.view(batch_samples, data.size(1), -1).to(device)
+        data = data.view(batch_samples, data.size(1), -1)
         total_pixels += batch_samples * data.size(2)
 
         mean += data.sum(dim=[0, 2])
@@ -243,4 +241,9 @@ def compute_mean_std(image_paths:List[Path], # List of image file paths.
     mean /= total_pixels
     std = torch.sqrt(std / total_pixels - mean ** 2)
 
-    return {'mean': mean.tolist(), 'std': std.tolist()}
+    result = {'mean': mean.cpu().tolist(), 'std': std.cpu().tolist()}
+
+    # Explicitly delete large objects
+    del loader, dataset, data, mean, std
+
+    return result
