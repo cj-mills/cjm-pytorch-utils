@@ -175,6 +175,9 @@ from typing import List
 
 # %% ../nbs/00_core.ipynb 39
 class ImageDataset(Dataset):
+    """
+    A PyTorch Dataset for RGB images.
+    """
     def __init__(self, image_paths, transform=None):
         self.image_paths = image_paths
         self.transform = transform or transforms.ToTensor()
